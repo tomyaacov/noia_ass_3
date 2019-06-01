@@ -20,7 +20,7 @@ x_0 = uniform(a, b, a.shape[0])
 
 # running the algorithm
 x = projected_coordinate_descent(H, g, a, b, x_0, alpha, max_iter, epsilon)
-print(x, "\\")
-print(objective(H, x, g), "\\")
+print(x, r"\\")
+print(objective(H, x, g), r"\\")
 
 
