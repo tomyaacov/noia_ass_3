@@ -31,23 +31,93 @@
 
 \section{Equality constrained optimization}
 \begin{enumerate}[(a)] 
-\item t
-\begin{tcolorbox}
-\importandtypeset{test}
-\end{tcolorbox}
-\item t
-\begin{scriptsize}
-\begin{tcolorbox}[%
-    enhanced, 
-    breakable,
-    frame hidden,
-    overlay broken = {
-        \draw[line width=0.5mm, black, rounded corners]
-        (frame.north west) rectangle (frame.south east);},
-    ]{}
-\importandtypeset{test}
-\end{tcolorbox}
-\end{scriptsize}
+\item The optimization problem that is given can be formulated to a single equality constrained optimization problem:
+\[\max_{\mathbf{x}\in \mathbb{R}^3}x_1x_2+x_2x_3+x_1x_3 \quad s.t. \quad x_1+x_2+x_3-3=0\]
+The Lagrangian of this method is
+\[\mathcal{L}(\mathbf{x}, \lambda_1) =  x_1x_2+x_2x_3+x_1x_3 + \lambda_1(x_1+x_2+x_3-3) \]
+and the solution of this problem is given by
+\begin{align*}
+\nabla \mathcal{L} = 0 &\Rightarrow 
+\begin{cases}
+x_2+x_3+\lambda_1 = 0\\
+x_1+x_3+\lambda_1 = 0\\
+x_1+x_2+\lambda_1 = 0 \\
+x_1+x_2+x_3 = 0 \\
+\end{cases}
+&\Rightarrow \quad
+\begin{cases}
+x_1=1\\
+x_2=1\\
+x_3=1\\
+\lambda_1=-2\\
+\end{cases}
+\end{align*}
+\item In order to show that this critical point is a maximum point we'll first compute the Hessian of $\mathcal{L}$:
+\[\nabla_{\mathbf{x}}^2 \mathcal{L}(\mathbf{x}, \lambda_1) = 
+\begin{bmatrix} 
+\frac{\partial^2 \mathcal{L}}{\partial x_1^2} & \frac{\partial ^2 \mathcal{L}}{\partial x_1\partial x_2} & \frac{\partial ^2 \mathcal{L}}{\partial x_1\partial x_3} \\
+\frac{\partial^2 \mathcal{L}}{\partial x_2\partial x_1} & \frac{\partial ^2 \mathcal{L}}{\partial x_2^2} & \frac{\partial ^2 \mathcal{L}}{\partial x_2\partial x_3} \\
+\frac{\partial^2 \mathcal{L}}{\partial x_3\partial x_1} & \frac{\partial ^2 \mathcal{L}}{\partial x_3\partial x_2} & \frac{\partial ^2 \mathcal{L}}{\partial x_3^2} 
+\end{bmatrix}
+ = 
+ \begin{bmatrix} 
+ 0& 1 & 1 \\
+  1& 0 & 1 \\
+   1& 1 & 0 
+ \end{bmatrix}
+ \]
+Next we'll show that the Hessian of the Lagrangian is negative
+\[\mathbf{y}^T\nabla_{\mathbf{x}}^2\mathbf{y} \quad \forall \mathbf{y}\in \mathbb{R}^3 \quad s.t. \quad \mathbf{y}^T\mathbf{1} = 0 , \mathbf{y}\ne \mathbf{0} \]
+\begin{align*}
+\mathbf{y}^T\nabla_{\mathbf{x}}^2\mathbf{y} &= 
+ \begin{bmatrix} 
+ y_1& y_2 & y_3 
+ \end{bmatrix}
+ \begin{bmatrix} 
+  0& 1 & 1 \\
+   1& 0 & 1 \\
+    1& 1 & 0 
+  \end{bmatrix}
+   \begin{bmatrix} 
+   y_1\\ y_2 \\ y_3 
+   \end{bmatrix} \\ 
+   &=
+\begin{bmatrix} 
+ y_2+y_3& y_1+y_3 & y_1+y_2 
+ \end{bmatrix}
+\begin{bmatrix} 
+   y_1\\ y_2 \\ y_3 
+   \end{bmatrix} 
+\end{align*}
+in addition,
+\[\mathbf{y}^T\mathbf{1} = 0 \Rightarrow y_1+y_2+y_3 = 0 \Rightarrow 
+\begin{bmatrix} 
+ y_2+y_3\\ y_1+y_3 \\ y_1+y_2 
+ \end{bmatrix}
+ =
+ \begin{bmatrix} 
+    -y_1\\ -y_2 \\ -y_3 
+    \end{bmatrix} 
+\]
+thererfore, we get
+\begin{align*}
+\mathbf{y}^T\nabla_{\mathbf{x}}^2\mathbf{y} 
+&=
+\begin{bmatrix} 
+ y_2+y_3& y_1+y_3 & y_1+y_2 
+ \end{bmatrix}
+\begin{bmatrix} 
+   y_1\\ y_2 \\ y_3 
+   \end{bmatrix} \\
+&= 
+\begin{bmatrix} 
+ -y_1& -y_2 & -y_3 
+ \end{bmatrix}
+\begin{bmatrix} 
+   y_1\\ y_2 \\ y_3 
+   \end{bmatrix} \\
+   &= -y_1^2 -y_2^2 -y_3^2 < 0 && *\mathbf{y}\ne \mathbf{0}
+\end{align*}
 \end{enumerate}
 \section{General constrained optimization}
 \begin{enumerate}[(a)] 
@@ -57,10 +127,134 @@
 \end{enumerate}
 \section{Box-constrained optimization}
 \begin{enumerate}[(a)]
-\item 
-\item 
-\item 
-\item 
+\item The scalar box constrained minimization problem can be formulated to general constrained optimiziation problem:
+\[\min_{x\in \mathbb{R}}\frac{1}{2}hx^2-gx\quad s.t. \quad  
+\begin{cases}
+-x+a \le 0\\
+x-b \le 0
+\end{cases}
+\]
+The Lagrangian of this method is
+\[\mathcal{L}(x, \lambda_1, \lambda_2) =  \frac{1}{2}hx^2-gx + \lambda_1(-x+a) + \lambda_2(x-b)\]
+We'll compute the first order necessary conditions: Suppose that $x^*$ is a local solution of the problem, than the following conditions hold:
+\begin{enumerate}[(1)] 
+\item $\nabla_x\mathcal{L}(x^*, \lambda_1^*, \lambda_2^*) = hx^*-g -\lambda_1^*+\lambda_2^* = 0$
+\item $-x^*+a \le 0$
+\item $x^*-b \le 0$
+\item $\lambda_1^* \ge 0$
+\item $\lambda_2^* \ge 0$
+\item $\lambda_1^*(-x^*+a) = 0$
+\item $\lambda_2^*(x^*-b) = 0$
+\end{enumerate}
+To know whether a stationary point is a minimum or a maximum we have the second order necessary conditions for general constrained minimization:
+\[\nabla_x^2\mathcal{L}(x^*, \lambda_1^*, \lambda_2^*) = h > 0\]
+therefore
+\[y\nabla_x^2\mathcal{L}(x^*, \lambda_1^*, \lambda_2^*)y  = yhy> 0 \quad \forall y \ne 0\]
+and the stationary point is a minimum.\\
+We can divide our solution to 3 cases:
+\begin{enumerate}
+\item $a \le \frac{g}{h} \le b$:\\
+Solution: $x^* =  \frac{g}{h}, \lambda_1^* = 0, \lambda_2^* = 0$
+we'll check that the first order necessary conditions hold:
+\begin{enumerate}[(1)] 
+\item $\nabla_x\mathcal{L}(x^*, \lambda_1^*, \lambda_2^*) = hx^*-g -\lambda_1^*+\lambda_2^*  = h\frac{g}{h}-g -0+0 = 0$
+\item $-x^*+a  = -\frac{g}{h}+a \le 0$
+\item $x^*-b  = \frac{g}{h}-b\le 0$
+\item $\lambda_1^*  = 0\ge 0$
+\item $\lambda_2^*  = 0\ge 0$
+\item $\lambda_1^*(-x^*+a) =0(-\frac{g}{h}+a) = 0$
+\item $\lambda_2^*(x^*-b) = 0(\frac{g}{h}-b) = 0$
+\end{enumerate}
+\item $a > \frac{g}{h} $:\\
+Solution: $x^* =  a, \lambda_1^* = ha-g, \lambda_2^* = 0$
+we'll check that the first order necessary conditions hold:
+\begin{enumerate}[(1)] 
+\item $\nabla_x\mathcal{L}(x^*, \lambda_1^*, \lambda_2^*) = hx^*-g -\lambda_1^*+\lambda_2^*  = ha-g -(ha-g)+0 = 0$
+\item $-x^*+a  = -a+a \le 0$
+\item $x^*-b  = a-b\le 0$
+\item $\lambda_1^*  = ha-g>h\frac{g}{h}-g = 0$
+\item $\lambda_2^*  = 0\ge 0$
+\item $\lambda_1^*(-x^*+a) =(ha-g)(-a+a) = 0$
+\item $\lambda_2^*(x^*-b) = 0(a-b) = 0$
+\end{enumerate}
+\item $\frac{g}{h} > b$:\\
+Solution: $x^* =  b, \lambda_1^* = 0, \lambda_2^* =-hb+g$
+we'll check that the first order necessary conditions hold:
+\begin{enumerate}[(1)] 
+\item $\nabla_x\mathcal{L}(x^*, \lambda_1^*, \lambda_2^*) = hx^*-g -\lambda_1^*+\lambda_2^*  = hb-g -0-hb+g= 0$
+\item $-x^*+a  = -b+a \le 0$
+\item $x^*-b  = b-b\le 0$
+\item $\lambda_1^*  = 0\ge  0$
+\item $\lambda_2^*  = -hb+g > -h\frac{g}{h}+g = 0$
+\item $\lambda_1^*(-x^*+a) =0(-b+a) = 0$
+\item $\lambda_2^*(x^*-b) = (-hb+g)(b-b) = 0$
+\end{enumerate} 
+\end{enumerate}
+\item Let the following problem
+\[\min_{\mathbf{x}\in \mathbb{R}^n}\frac{1}{2}\mathbf{x}^TH \mathbf{x}-\mathbf{x}^T\mathbf{g} \quad s.t. \quad \mathbf{a}\le \mathbf{x}\le \mathbf{b} \]
+Therefore, the minimization for each scalar $x_i$ is given by
+\begin{align*}
+argmin_{x_i\in \mathbb{R}}\frac{1}{2}\mathbf{x}^TH \mathbf{x}-\mathbf{x}^T\mathbf{g} 
+&= argmin_{x_i\in \mathbb{R}}\frac{1}{2}\Big(\sum_i\sum_jx_ix_jh_{i,j}\Big)-\sum_ix_ig_i\\
+&= argmin_{x_i\in \mathbb{R}}\frac{1}{2}x_i^2h_{i,i}+\frac{1}{2}\Big(\sum_{j\ne i}x_ix_jh_{i,j}+x_ix_jh_{j,i}\Big)-x_ig_i &&*\text{removing consants-$x_j, j\ne i$}\\
+&= argmin_{x_i\in \mathbb{R}}\frac{1}{2}x_i^2h_{i,i}+\frac{1}{2}2\Big(\sum_{j\ne i}x_ix_jh_{i,j}\Big)-x_ig_i &&*\text{$H$ symmetric}\\
+&= argmin_{x_i\in \mathbb{R}}\frac{1}{2}x_i^2h_{i,i}+\Big(\Big(\sum_{j\ne i}x_jh_{i,j}\Big)-g_i\Big)x_i
+\end{align*}
+In addition, given that the rest are known:
+\[\mathbf{a}\le \mathbf{x}\le \mathbf{b} \Rightarrow a_i \le x_i \le b_i\]
+therefore, we get  that the minimization for each scalar $x_i$ is given by
+\[\min_{x_i\in \mathbb{R}}\frac{1}{2}x_i^2h_{i,i}+\Big(\Big(\sum_{i\ne j}x_jh_{i,j}\Big)-g_i\Big)x_i \quad s.t. \quad a_i \le x_i \le b_i\]
+In order to show the expression for the update of projected coordinate descent, we need to define the projection operation with respect to some norm and then set
+\[x_i^{(k+1)} = \Pi_\Omega (x_i^{(k)} -\alpha \nabla f(x_i^{(k)})) \]
+We will choose the squared $l_2$ norm. The lagrangian is given by
+\[\mathcal{L}(x_i, \lambda_1, \lambda_2) = \frac{1}{2}||x_i-y_i||_2^2+\lambda_1(-x+a)+\lambda_2(x-b)       \]
+and its gradient is given by
+\[  \nabla_{x_i} \mathcal{L}(x_i, \lambda_1, \lambda_2) = x_i-y_i -\lambda_1+\lambda_2     \]
+The problem is separable, so if $a_i \le x_i \le b_i$, then we can set $x_i^* = y_i$ without breaking the constraint, and hence $\lambda_1^*=\lambda_2^*=0$, because the
+constraints are inactive. If $y_i < a_i$, then the lower bound constraint is active and the upper bound is not. We set $x_i^* = a_i$ and
+\[x_i^* - y_i-\lambda_1 = 0 \Rightarrow\lambda_1 = a_i-y_i > 0 \]
+We get a positive Lagrange multiplier, which is what needs to be. If $y_i>b_i$, then the upper bound constraint is active and the lower bound is not. We set $x_i^* = b_i$ and
+\[x_i^* - y_i+\lambda_2 = 0 \Rightarrow\lambda_2 = y_i-b_i > 0 \]
+The gradient is defined by
+\[(\nabla f (x^{(k)}))_{(i)} = h_{i,i}x_i+\sum_{j\ne i}  h_{i,j}x_j -g_i   \]
+and the step
+\[z_i =  x_i^{(k)}-\alpha (\nabla f (x^{(k)}))_{(i)}   \]
+Overall, the projected steepest descent step is given by:
+\[x_i^{(k+1)} = 
+\begin{cases}
+a_i &\quad z_i <a_i\\
+b_i &\quad z_i >b_i\\
+z_i &\quad otherwise\\
+\end{cases}
+\]
+
+\item Following is an implementation for projected coordinate descent algorithm
+\begin{scriptsize}
+\begin{tcolorbox}[%
+    enhanced, 
+    breakable,
+    frame hidden,
+    overlay broken = {
+        \draw[line width=0.5mm, black, rounded corners]
+        (frame.north west) rectangle (frame.south east);},
+    ]{}
+\importandtypeset{part_3_c}
+\end{tcolorbox}
+\end{scriptsize}
+
+\item Running the implementation over the given parameters
+\begin{scriptsize}
+\begin{tcolorbox}[%
+    enhanced, 
+    breakable,
+    frame hidden,
+    overlay broken = {
+        \draw[line width=0.5mm, black, rounded corners]
+        (frame.north west) rectangle (frame.south east);},
+    ]{}
+\importandtypeset{part_3_d}
+\end{tcolorbox}
+\end{scriptsize}
 \end{enumerate}
 \section{Projected Gradient Descent for the LASSO regression}
 \begin{enumerate}[(a)] 
