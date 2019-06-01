@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Home assignment 3}
+\author{Numerical Optimization and its Applications - Spring 2019\\Gil Ben Shalom, 301908877\\Tom Yaacov, 305578239}
+\date{\today}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage{pythontex}
+\usepackage[most]{tcolorbox}
+\usepackage{amsmath,amsthm,amssymb}
+
+\newcommand{\importandtypeset}[1]{
+  \inputpygments{python}{py_files/#1.py}%
+  \pyc{from py_files import #1}
+}
+
+\newcommand{\saveandshowplot}[1]{
+  \begin{center}
+  \includegraphics[width=0.85\textwidth]{#1}
+  \end{center}
+}
+
+\newtheorem{lemma}{Lemma}
+
+\AtBeginEnvironment{tcolorbox}{\scriptsize}
+
+\begin{document}
+
+\maketitle
+
+\section{Equality constrained optimization}
+\begin{enumerate}[(a)] 
+\item t
+\begin{tcolorbox}
+\importandtypeset{test}
+\end{tcolorbox}
+\item t
+\begin{scriptsize}
+\begin{tcolorbox}[%
+    enhanced, 
+    breakable,
+    frame hidden,
+    overlay broken = {
+        \draw[line width=0.5mm, black, rounded corners]
+        (frame.north west) rectangle (frame.south east);},
+    ]{}
+\importandtypeset{test}
+\end{tcolorbox}
+\end{scriptsize}
+\end{enumerate}
+\section{General constrained optimization}
+\begin{enumerate}[(a)] 
+\item 
+\item 
+\item 
+\end{enumerate}
+\section{Box-constrained optimization}
+\begin{enumerate}[(a)]
+\item 
+\item 
+\item 
+\item 
+\end{enumerate}
+\section{Projected Gradient Descent for the LASSO regression}
+\begin{enumerate}[(a)] 
+\item 
+\item 
+\item 
+\item (non-mandatory)
+\item (non-mandatory)
+\end{enumerate}
+\end{document}
