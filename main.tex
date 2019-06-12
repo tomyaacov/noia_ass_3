@@ -9,6 +9,9 @@
 \usepackage{pythontex}
 \usepackage[most]{tcolorbox}
 \usepackage{amsmath,amsthm,amssymb}
+%\usepackage[dvipsnames]{xcolor}
+
+\usepackage{fancyvrb}
 
 \newcommand{\importandtypeset}[1]{
   \inputpygments{python}{py_files/#1.py}%
@@ -209,7 +212,32 @@ From all the above we can conclude that the KKT condition hold.
 \[
 f_\mu(x) = (x_1 + x_2)^2 - 10(x_1 + x_2) + \mu [(3x_1 + x_2 - 6)^2 + (max\{(x_1^2 + x_2^2 - 5), 0\})^2 + (max\{-x_1, 0\})^2]
 \]
-\item
+\item ????????????????????????????????????
+\begin{scriptsize}
+\begin{tcolorbox}[%
+    enhanced,
+    breakable,
+    frame hidden,
+    overlay broken = {
+        \draw[line width=0.5mm, black, rounded corners]
+        (frame.north west) rectangle (frame.south east);},
+    ]{}
+\inputpygments{python}{py_files/part_2_c.py}%
+\end{tcolorbox}
+\end{scriptsize}
+????????????????????????????????????
+\begin{scriptsize}
+\begin{tcolorbox}[%
+    enhanced,
+    breakable,
+    frame hidden,
+    overlay broken = {
+        \draw[line width=0.5mm, black, rounded corners]
+        (frame.north west) rectangle (frame.south east);},
+    ]{}
+\VerbatimInput{py_files/part_2_c_results.txt}
+\end{tcolorbox}
+\end{scriptsize}
 \end{enumerate}
 \section{Box-constrained optimization}
 \begin{enumerate}[(a)]
@@ -377,8 +405,61 @@ let $\mathbf{u}, \mathbf{v}$ be the vectors that minimize the objective $||A(\ma
 Proof: Assume for the sake of contradiction that there exists $\mathbf{x}'$ s.t
 $||A\mathbf{x}' - \mathbf{b}||_2^2 + \lambda||\mathbf{x}'||_1 < ||A\mathbf{x} - \mathbf{b}||_2^2 + \lambda||\mathbf{x}||_1$, We can declare $\mathbf{u}', \mathbf{v}'$ as seen in previous proof and get that $||A(\mathbf{u}' - \mathbf{v}') - \mathbf{b}||_2^2 + \lambda(1^T(\mathbf{u}' + \mathbf{v}')) = ||A\mathbf{x}' - \mathbf{b}||_2^2 + \lambda||\mathbf{x}'||_1 < ||A\mathbf{x} - \mathbf{b}||_2^2 + \lambda||\mathbf{x}||_1 = ||A(\mathbf{u} - \mathbf{v}) - \mathbf{b}||_2^2 + \lambda(1^T(\mathbf{u} + \mathbf{v}))$ in contradiction to the minimization of $\mathbf{u}, \mathbf{v}.$
 
-\item Code attached
+\item Code attached:
+????????????????????????????????????
+\begin{scriptsize}
+\begin{tcolorbox}[%
+    enhanced,
+    breakable,
+    frame hidden,
+    overlay broken = {
+        \draw[line width=0.5mm, black, rounded corners]
+        (frame.north west) rectangle (frame.south east);},
+    ]{}
+\inputpygments{python}{py_files/part_4_b.py}%
+\end{tcolorbox}
+\end{scriptsize}
 \item We will use the steepest decent by setting $A'=[A\text{ }-A], \mathbf{x} = [\mathbf{u}\text{ }\mathbf{v}]$. $\lambda=3$ leads to a solution with approximately 10\% non zero values. results below:
+\begin{scriptsize}
+\begin{tcolorbox}[%
+    enhanced,
+    breakable,
+    frame hidden,
+    overlay broken = {
+        \draw[line width=0.5mm, black, rounded corners]
+        (frame.north west) rectangle (frame.south east);},
+    ]{}
+\inputpygments{python}{py_files/part_4_c.py}%
+\end{tcolorbox}
+\end{scriptsize}
+???????????????????????????????
+\begin{scriptsize}
+\begin{tcolorbox}[%
+    enhanced,
+    breakable,
+    frame hidden,
+    overlay broken = {
+        \draw[line width=0.5mm, black, rounded corners]
+        (frame.north west) rectangle (frame.south east);},
+    ]{}
+\VerbatimInput{py_files/4c_results.txt}
+\end{tcolorbox}
+\end{scriptsize}
+???????????????????????????????
+\begin{scriptsize}
+\begin{tcolorbox}[%
+    enhanced,
+    breakable,
+    frame hidden,
+    overlay broken = {
+        \draw[line width=0.5mm, black, rounded corners]
+        (frame.north west) rectangle (frame.south east);},
+    ]{}
+\begin{center}
+  \includegraphics[width=0.85\textwidth]{py_files/4c_objectives}
+\end{center}
+\end{tcolorbox}
+\end{scriptsize}
 \item (non-mandatory)
 \item (non-mandatory)
 \end{enumerate}
