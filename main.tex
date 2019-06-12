@@ -378,7 +378,7 @@ Proof: Assume for the sake of contradiction that there exists $\mathbf{x}'$ s.t
 $||A\mathbf{x}' - \mathbf{b}||_2^2 + \lambda||\mathbf{x}'||_1 < ||A\mathbf{x} - \mathbf{b}||_2^2 + \lambda||\mathbf{x}||_1$, We can declare $\mathbf{u}', \mathbf{v}'$ as seen in previous proof and get that $||A(\mathbf{u}' - \mathbf{v}') - \mathbf{b}||_2^2 + \lambda(1^T(\mathbf{u}' + \mathbf{v}')) = ||A\mathbf{x}' - \mathbf{b}||_2^2 + \lambda||\mathbf{x}'||_1 < ||A\mathbf{x} - \mathbf{b}||_2^2 + \lambda||\mathbf{x}||_1 = ||A(\mathbf{u} - \mathbf{v}) - \mathbf{b}||_2^2 + \lambda(1^T(\mathbf{u} + \mathbf{v}))$ in contradiction to the minimization of $\mathbf{u}, \mathbf{v}.$
 
 \item Code attached
-\item We will use the steepest decent by setting $A'=[A\text{ }-A], \mathbf{x} = [\mathbf{u}\text{ }\mathbf{v}]$. results below:
+\item We will use the steepest decent by setting $A'=[A\text{ }-A], \mathbf{x} = [\mathbf{u}\text{ }\mathbf{v}]$. $\lambda=3$ leads to a solution with approximately 10\% non zero values. results below:
 \item (non-mandatory)
 \item (non-mandatory)
 \end{enumerate}
