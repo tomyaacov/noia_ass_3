@@ -70,9 +70,9 @@ x_3=1\\
  \end{bmatrix}
  \]
 Next we'll show that the Hessian of the Lagrangian is negative
-\[\mathbf{y}^T\nabla_{\mathbf{x}}^2\mathbf{y} \quad \forall \mathbf{y}\in \mathbb{R}^3 \quad s.t. \quad \mathbf{y}^T\mathbf{1} = 0 , \mathbf{y}\ne \mathbf{0} \]
+\[\mathbf{y}^T\nabla_{\mathbf{x}}^2\mathcal{L}\mathbf{y} <0 \quad \forall \mathbf{y}\in \mathbb{R}^3 \quad s.t. \quad \mathbf{y}^T\mathbf{1} = 0 , \mathbf{y}\ne \mathbf{0} \]
 \begin{align*}
-\mathbf{y}^T\nabla_{\mathbf{x}}^2\mathbf{y} &= 
+\mathbf{y}^T\nabla_{\mathbf{x}}^2\mathcal{L}\mathbf{y} &= 
  \begin{bmatrix} 
  y_1& y_2 & y_3 
  \end{bmatrix}
@@ -104,7 +104,7 @@ in addition,
 \]
 therefore, we get
 \begin{align*}
-\mathbf{y}^T\nabla_{\mathbf{x}}^2\mathbf{y}
+\mathbf{y}^T\nabla_{\mathbf{x}}^2\mathcal{L}\mathbf{y}
 &=
 \begin{bmatrix}
  y_2+y_3& y_1+y_3 & y_1+y_2
@@ -235,7 +235,10 @@ Function and constraint results for each value of $\mu$
         \draw[line width=0.5mm, black, rounded corners]
         (frame.north west) rectangle (frame.south east);},
     ]{}
-\VerbatimInput{py_files/part_2_c_results.txt}
+\begingroup
+\obeylines
+\input{py_files/part_2_c_results.txt}
+\endgroup%
 \end{tcolorbox}
 \end{scriptsize}
 \end{enumerate}
@@ -307,13 +310,16 @@ we'll check that the first order necessary conditions hold:
 \item Let the following problem
 \[\min_{\mathbf{x}\in \mathbb{R}^n}\frac{1}{2}\mathbf{x}^TH \mathbf{x}-\mathbf{x}^T\mathbf{g} \quad s.t. \quad \mathbf{a}\le \mathbf{x}\le \mathbf{b} \]
 Therefore, the minimization for each scalar $x_i$ is given by
+\begin{small}
 \begin{align*}
 argmin_{x_i\in \mathbb{R}}\frac{1}{2}\mathbf{x}^TH \mathbf{x}-\mathbf{x}^T\mathbf{g}
 &= argmin_{x_i\in \mathbb{R}}\frac{1}{2}\Big(\sum_i\sum_jx_ix_jh_{i,j}\Big)-\sum_ix_ig_i\\
-&= argmin_{x_i\in \mathbb{R}}\frac{1}{2}x_i^2h_{i,i}+\frac{1}{2}\Big(\sum_{j\ne i}x_ix_jh_{i,j}+x_ix_jh_{j,i}\Big)-x_ig_i &&*\text{removing consants-$x_j, j\ne i$}\\
+&= argmin_{x_i\in \mathbb{R}}\frac{1}{2}x_i^2h_{i,i}+\frac{1}{2}\Big(\sum_{j\ne i}x_ix_jh_{i,j}+x_ix_jh_{j,i}\Big)-x_ig_i &&*\text{\tiny removing consants-$x_j, j\ne i$}\\
 &= argmin_{x_i\in \mathbb{R}}\frac{1}{2}x_i^2h_{i,i}+\frac{1}{2}2\Big(\sum_{j\ne i}x_ix_jh_{i,j}\Big)-x_ig_i &&*\text{$H$ symmetric}\\
 &= argmin_{x_i\in \mathbb{R}}\frac{1}{2}x_i^2h_{i,i}+\Big(\Big(\sum_{j\ne i}x_jh_{i,j}\Big)-g_i\Big)x_i
 \end{align*}
+\end{small}
+
 In addition, given that the rest are known:
 \[\mathbf{a}\le \mathbf{x}\le \mathbf{b} \Rightarrow a_i \le x_i \le b_i\]
 therefore, we get  that the minimization for each scalar $x_i$ is given by
@@ -342,7 +348,7 @@ z_i &\quad otherwise\\
 \end{cases}
 \]
 
-\item Following is an implementation for projected coordinate descent algorithm
+\item Following is an implementation for projected coordinate descent algorithm:
 \begin{scriptsize}
 \begin{tcolorbox}[%
     enhanced,
@@ -356,7 +362,7 @@ z_i &\quad otherwise\\
 \end{tcolorbox}
 \end{scriptsize}
 
-\item Running the implementation over the given parameters
+\item Running the implementation over the given parameters and outputing the results:
 \begin{scriptsize}
 \begin{tcolorbox}[%
     enhanced,
@@ -441,7 +447,11 @@ $||A\mathbf{x}' - \mathbf{b}||_2^2 + \lambda||\mathbf{x}'||_1 < ||A\mathbf{x} - 
         \draw[line width=0.5mm, black, rounded corners]
         (frame.north west) rectangle (frame.south east);},
     ]{}
-\VerbatimInput{py_files/4c_results.txt}
+\begingroup
+\obeylines
+\input{py_files/4c_results.txt}
+\endgroup%
+
 \end{tcolorbox}
 \end{scriptsize}
 The objective value of each iteration, for each lambda:
